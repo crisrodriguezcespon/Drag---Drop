@@ -81,8 +81,14 @@ body {
     padding: 1rem;
     display: flex;
     justify-content: center;
+    align-items: start;
     gap: 20px; 
+    flex-wrap: wrap;
     min-height: 200px;
+}
+.es-titulo {
+    min-width: 100%;
+    text-align: center;
 }
 .progreso {
     width: 100%;
