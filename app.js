@@ -1,3 +1,22 @@
+
+function soltarIcono(evt, tipo) {
+    evt.preventDefault();
+    const id = evt.dataTransfer.getData('text/plain');
+    const icono = document.getElementById(id);
+    // como se pueden arrastrar otras cosas, comprobamos que haya traido un
+    // id existente y tenga la clase icono
+    if ( !icono && !icono.classList.contains('contenedor-icono')) {
+        return;
+    }
+    if (icono.dataset.tipo === tipo) {
+        // si el elemento existe en el DOM, append lo mueve
+        evt.currentTarget.append(icono);
+        aciertos++;
+        document.getElementById('progreso').value = aciertos;
+        
+    }
+}
+
 // Funciones para hacer DRAG
 const iconos = document.querySelectorAll('.contenedor-icono');
 for (const i of iconos) {
@@ -17,36 +36,11 @@ document.querySelector('.salida').addEventListener('dragover', evt => {
 
 // Funciones para hacer DROP
 document.querySelector('.entrada').addEventListener('drop', evt => {
-    evt.preventDefault();
-    const id = evt.dataTransfer.getData('text/plain');
-    const icono = document.getElementById(id);
-    // como se pueden arrastrar otras cosas, comprobamos que haya traido un
-    // id existente y tenga la clase icono
-    if ( !icono && !icono.classList.contains('contenedor-icono')) {
-        return;
-    }
-    if (icono.dataset.tipo === 'e') {
-        // si el elemento existe en el DOM, append lo mueve
-        evt.currentTarget.append(icono);
-        aciertos++;
-        document.getElementById('progreso').value = aciertos;
-    }
+   soltarIcono(evt, 'e');
 })
 document.querySelector('.salida').addEventListener('drop', evt => {
-    evt.preventDefault();
-    const id = evt.dataTransfer.getData('text/plain');
-    const icono = document.getElementById(id);
-    // como se pueden arrastrar otras cosas, comprobamos que haya traido un
-    // id existente y tenga la clase icono
-    if ( !icono && !icono.classList.contains('contenedor-icono')) {
-        return;
-    }
-    if (icono.dataset.tipo === 's') {
-        // si el elemento existe en el DOM, append lo mueve
-        evt.currentTarget.append(icono);
-        aciertos++;
-        document.getElementById('progreso').value = aciertos;
-    }
+   soltarIcono(evt, 's');
 })
 
 let aciertos = 0;
+let acertados = document.querySelector('span .aciertos');
