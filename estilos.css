@@ -9,6 +9,8 @@
     --color-terciario: beige;
     --color-texto-primario: white;
     --color-texto-secundario: black;
+    --color-fallo: red;
+    --color-acierto: green;
 }
 
 body {
@@ -75,7 +77,7 @@ body {
     margin: 1rem auto;
 }
 .entrada, .salida {
-    flex-grow: 1;
+    width: 50%;
     border-radius: 10px;
     border: 3px solid var(--color-secundario);
     padding: 1rem;
@@ -84,7 +86,7 @@ body {
     align-items: start;
     gap: 20px; 
     flex-wrap: wrap;
-    min-height: 200px;
+    min-height: 400px;
 }
 .es-titulo {
     min-width: 100%;
@@ -93,8 +95,44 @@ body {
 .progreso {
     width: 100%;
     background-color: var(--color-terciario);
+    color: var(--color-primario);
+    appearance: none;
+}
+progress::-moz-progress-bar {
+    color: var(--color-primario);
+}
+progress::-webkit-progress-value {
+    color: var(--color-primario);
 }
 .aciertos {
     margin-top: .6rem;
     text-align: center;
+}
+.arrastrando {
+    background-color: var(--color-terciario);
+}
+
+.icono-acertado {
+    animation: animacion-acierto .2s;
+}
+.icono-fallado {
+    animation: animacion-fallo .2s;
+}
+@keyframes animacion-acierto {
+    50% {
+        rotate: z 5deg;
+    }
+    to {
+        background-color: var(--color-acierto);
+        rotate: z -5deg;
+    }
+}
+@keyframes animacion-fallo {
+    50% {
+        rotate: z 5deg;
+    }
+    to {
+        background-color: var(--color-fallo);
+        rotate: z -5deg;
+    }
 }
