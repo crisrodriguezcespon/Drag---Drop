@@ -15,6 +15,7 @@
         <h2 class="encabezado-subtitulo">Mueve cada imagen a su caja correspondiente</h2>
     </header>
     <main class="contenedor">
+        <p class="tiempo" id="tiempo">0</p>
         <div class="disponibles">
             <div class="contenedor-icono"  draggable="true" id="i1" data-tipo="s">
                 <img src="images/i1.png" alt="altavoz" class="icono">
@@ -64,7 +65,16 @@
         <footer class="pie">
             <progress class="progreso" id="progreso" value="0" min="1" max="12"></progress>
             <p class="aciertos">Aciertos: <span id="aciertos">0</span></p>
+            
         </footer>
     </main>
+    <dialog class="resultado" id="resultado">
+        <div class="resultado-contenedor">
+            <h2 class="resultado-titulo">Has ganado</h2>
+            <p class="resultado-mensaje">lorem ipsum</p>
+            <a href="" class="resultado-cerrar">Cerrar</a> 
+        </div>
+        
+    </dialog>
 </body>
 </html>

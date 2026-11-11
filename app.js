@@ -23,7 +23,7 @@ function soltarIcono(evt, tipo) {
         evt.currentTarget.offsetWidth;
         evt.currentTarget.classList.add('icono-acertado');
         if(aciertos === TOTAL_ICONOS) {
-            confetti({size:3, fade:true});
+            finPartida();
         }
     } else {
         evt.currentTarget.classList.remove('icono-acertado');
@@ -33,10 +33,43 @@ function soltarIcono(evt, tipo) {
     }
 }
 
+function incrementarTiempo() {
+    segundos++;
+    document.getElementById('tiempo').textContent = segundos;
+}
+
+function finPartida() {
+    clearInterval(reloj);
+    reloj = null;
+    for (const i of document.querySelectorAll('.contenedor-icono')) {
+        i.setAttribute('draggable', false);
+    }
+    confetti({size:3, fade:true});
+    const resultado = document.getElementById('resultado');
+    const mensaje = document.querySelector('.resultado-mensaje');
+    let record = localStorage.getItem('record');
+    if(record === null) {
+        localStorage.setItem('record', segundos);
+        mensaje.textContent = `Has ganado`;
+    } else if (segundos < Number(record)){
+        localStorage.setItem('record', segundos);
+        mensaje.textContent = `Has superado el record: ${segundos} contra ${record}`;
+    } else {
+        mensaje.textContent = `No has superado el record: ${segundos} contra ${record}`;
+    }
+    resultado.showModal();
+}
+
 // Funciones para hacer DRAG
 const iconos = document.querySelectorAll('.contenedor-icono');
 for (const i of iconos) {
     i.addEventListener('dragstart', evt => {
+        if(aciertos === TOTAL_ICONOS ) {
+            return;
+        }
+        if(reloj === null) {
+            reloj = setInterval(incrementarTiempo, 1000);
+        }
         evt.dataTransfer.setData('text/plain', i.id);
         evt.dataTransfer.effectAllowed = 'move';
     });
@@ -87,3 +120,5 @@ document.querySelector('.salida').addEventListener('dragleave', evt => {
 
 let aciertos = 0;
 const TOTAL_ICONOS = 12
+let reloj = null;
+let segundos = 0;
